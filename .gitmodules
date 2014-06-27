@@ -1,0 +1,3 @@
+[submodule "external/php-soundcloud"]
+	path = external/php-soundcloud
+	url = https://github.com/mptre/php-soundcloud.git
