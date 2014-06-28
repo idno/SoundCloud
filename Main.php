@@ -45,7 +45,8 @@
                                     try {
                                         $track = json_decode($soundcloudAPI->post('tracks', array(
                                             'track[title]' => $object->getTitle(),
-                                            'track[asset_data]' => $media
+                                            'track[asset_data]' => $media,
+                                            'track[description]' => $message
                                         )));
                                         if (!empty($track->permalink_url)) {
                                             $result['id'] = $track->id;
