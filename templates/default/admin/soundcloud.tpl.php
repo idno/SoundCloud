@@ -15,7 +15,7 @@
                         To begin using SoundCloud, <a href="http://soundcloud.com/you/apps/new" target="_blank">create a new application in
                             the SoundCloud apps portal</a>.</p>
                     <p>
-                        Use <strong><?=\Idno\Core\site()->config()->url?></strong>
+                        Use <strong><?=\Idno\Core\site()->config()->url?>soundcloud/callback</strong>
                         as the site URL.
                     </p>
                     <p>
