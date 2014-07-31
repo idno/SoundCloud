@@ -16,14 +16,7 @@
             {
                 $this->gatekeeper(); // Logged-in users only
                 if ($soundcloud = \Idno\Core\site()->plugins()->get('SoundCloud')) {
-                    if (!$soundcloud->hasSoundcloud()) {
-                        if ($soundcloudAPI = $soundcloud->connect()) {
-                            /* @var \Services_Soundcloud $soundcloudAPI */
-                            $login_url = $soundcloudAPI->getAuthorizeUrl();
-                        }
-                    } else {
-                        $login_url = '';
-                    }
+                    $login_url = $soundcloud->getAuthURL();
                 }
                 $t = \Idno\Core\site()->template();
                 $body = $t->__(['login_url' => $login_url])->draw('account/soundcloud');

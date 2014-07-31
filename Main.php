@@ -16,6 +16,7 @@
                 // Add menu items to account & administration screens
                     \Idno\Core\site()->template()->extendTemplate('admin/menu/items','admin/soundcloud/menu');
                     \Idno\Core\site()->template()->extendTemplate('account/menu/items','account/soundcloud/menu');
+                    \Idno\Core\site()->template()->extendTemplate('onboarding/connect/networks','onboarding/connect/soundcloud');
             }
 
             function registerEventHooks() {
@@ -64,6 +65,25 @@
                         }
                     }
                 });
+            }
+
+            /**
+             * Retrieve the URL to authenticate with the API
+             * @return string
+             */
+            function getAuthURL() {
+
+                $soundcloud = $this;
+                if (!$soundcloud->hasSoundcloud()) {
+                    if ($soundcloudAPI = $soundcloud->connect()) {
+                        /* @var \Services_Soundcloud $soundcloudAPI */
+                        $login_url = $soundcloudAPI->getAuthorizeUrl();
+                    }
+                } else {
+                    $login_url = '';
+                }
+                return $login_url;
+
             }
 
             /**
