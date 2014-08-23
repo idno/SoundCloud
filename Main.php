@@ -34,7 +34,7 @@
                                 if ($soundcloudAPI = $this->connect()) {
                                     $soundcloudAPI->setAccessToken(\Idno\Core\site()->session()->currentUser()->soundcloud['access_token']['access_token']);
 
-                                    if ($bytes = \Idno\Entities\File::getFileDataByID((string)$attachment['_id'])) {
+                                    if ($bytes = \Idno\Entities\File::getFileDataFromAttachment($attachment)) {
                                         $media = '';
                                         $filename = tempnam(sys_get_temp_dir(), 'knownsoundcloud') . '.' . pathinfo($attachment['filename'], PATHINFO_EXTENSION);;
                                         file_put_contents($filename, $bytes);
