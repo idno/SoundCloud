@@ -12,7 +12,7 @@
             echo 'connected';
         }
 
-    ?>">SoundCloud<?php
+    ?>" target="_top">SoundCloud<?php
 
             if (!empty(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
                 echo ' - connected!';
