@@ -19,7 +19,7 @@
                         as the site URL.
                     </p>
                     <p>
-                        Once you've finished, fill in the details below:
+                        Once you've finished, fill in the details below. You can then <a href="<?=\Idno\Core\site()->config()->getURL()?>settings/soundcloud/">connect your SoundCloud account</a>.
                     </p>
                 </div>
             </div>
