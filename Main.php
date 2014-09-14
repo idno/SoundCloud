@@ -5,6 +5,8 @@
         class Main extends \Idno\Common\Plugin {
 
             function registerPages() {
+                // Register the deauth URL
+                \Idno\Core\site()->addPageHandler('soundcloud/deauth/?','\IdnoPlugins\SoundCloud\Pages\Deauth');
                 // Register the callback URL
                     \Idno\Core\site()->addPageHandler('soundcloud/callback/?','\IdnoPlugins\SoundCloud\Pages\Callback');
                 // Register admin settings

@@ -1,7 +1,11 @@
 <?php
 
     if ($soundcloud = \Idno\Core\site()->plugins()->get('SoundCloud')) {
-        $login_url = $soundcloud->getAuthURL();
+        if (empty(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
+            $login_url = $soundcloud->getAuthURL();
+        } else {
+            $login_url = \Idno\Core\site()->config()->getURL() . 'soundcloud/deauth';
+        }
     }
 
 ?>
