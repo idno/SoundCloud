@@ -29,7 +29,8 @@
 
                 // Push "media" to Soundcloud
                 \Idno\Core\site()->addEventHook('post/media/soundcloud',function(\Idno\Core\Event $event) {
-                    $object = $event->data()['object'];
+                    $eventdata = $event->data();
+                    $object = $eventdata['object'];
                     if ($attachments = $object->getAttachments()) {
                         foreach($attachments as $attachment) {
                             if ($this->hasSoundcloud()) {
