@@ -19,15 +19,15 @@
                     $login_url = $soundcloud->getAuthURL();
                 }
                 $t = \Idno\Core\site()->template();
-                $body = $t->__(['login_url' => $login_url])->draw('account/soundcloud');
-                $t->__(['title' => 'Soundcloud', 'body' => $body])->drawPage();
+                $body = $t->__(array('login_url' => $login_url))->draw('account/soundcloud');
+                $t->__(array('title' => 'Soundcloud', 'body' => $body))->drawPage();
             }
 
             function postContent() {
                 $this->gatekeeper(); // Logged-in users only
                 if (($this->getInput('remove'))) {
                     $user = \Idno\Core\site()->session()->currentUser();
-                    $user->soundcloud = [];
+                    $user->soundcloud = array();
                     $user->save();
                     \Idno\Core\site()->session()->addMessage('Your SoundCloud settings have been removed from your account.');
                 }

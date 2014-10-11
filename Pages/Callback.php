@@ -20,7 +20,7 @@
                         /* @var \Services_Soundcloud $soundcloudAPI */
                         if ($access_token = $soundcloudAPI->accessToken($this->getInput('code'))) {
                             $user = \Idno\Core\site()->session()->currentUser();
-                            $user->soundcloud = ['access_token' => $access_token];
+                            $user->soundcloud = array('access_token' => $access_token);
                             $user->save();
                             \Idno\Core\site()->session()->addMessage('Your Soundcloud account was connected.');
                         }
