@@ -25,7 +25,7 @@
 
                 \Idno\Core\site()->syndication()->registerService('soundcloud', function() {
                     return $this->hasSoundcloud();
-                }, ['media']);
+                }, array('media'));
 
                 // Push "media" to Soundcloud
                 \Idno\Core\site()->addEventHook('post/media/soundcloud',function(\Idno\Core\Event $event) {
