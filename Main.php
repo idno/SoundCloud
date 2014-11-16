@@ -80,7 +80,7 @@
                 if (!$soundcloud->hasSoundcloud()) {
                     if ($soundcloudAPI = $soundcloud->connect()) {
                         /* @var \Services_Soundcloud $soundcloudAPI */
-                        $login_url = $soundcloudAPI->getAuthorizeUrl();
+                        $login_url = $soundcloudAPI->getAuthorizeUrl(array('scope' => 'non-expiring'));
                     }
                 } else {
                     $login_url = '';
