@@ -19,9 +19,41 @@
                                 If you have a Soundcloud account, you may connect it here. Public content that you
                                 post to this site will be automatically cross-posted to your Soundcloud wall.
                             </p>
-                            <p>
-                                <a href="<?=$vars['login_url']?>" class="btn btn-large btn-success">Click here to connect SoundCloud to your account</a>
-                            </p>
+                            <?php
+
+                                if (empty($vars['login_url'])) {
+
+                                    if (\Idno\Core\site()->session()->isAdmin()) {
+
+                                        ?>
+                                        <p>
+                                            You need to set up an API integration with SoundCloud before you connect
+                                            your account. <a href="<?=\Idno\Core\site()->config()->getDisplayURL()?>admin/soundcloud/">Click here to get started.</a>
+                                        </p>
+                                        <?php
+
+                                    } else {
+
+                                        ?>
+                                        <p>
+                                            SoundCloud isn't available right now. Please try again later.
+                                        </p>
+                                        <?php
+
+                                    }
+
+                                } else {
+
+                                    ?>
+                                    <p>
+                                        <a href="<?= $vars['login_url'] ?>" class="btn btn-large btn-success">Click here
+                                            to connect SoundCloud to your account</a>
+                                    </p>
+                                <?php
+
+                                }
+
+                            ?>
                         </div>
                     </div>
                 <?php

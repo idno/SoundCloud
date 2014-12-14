@@ -6,7 +6,7 @@
 
             function registerPages() {
                 // Register the deauth URL
-                \Idno\Core\site()->addPageHandler('soundcloud/deauth/?','\IdnoPlugins\SoundCloud\Pages\Deauth');
+                    \Idno\Core\site()->addPageHandler('soundcloud/deauth/?','\IdnoPlugins\SoundCloud\Pages\Deauth');
                 // Register the callback URL
                     \Idno\Core\site()->addPageHandler('soundcloud/callback/?','\IdnoPlugins\SoundCloud\Pages\Callback');
                 // Register admin settings
@@ -77,13 +77,14 @@
             function getAuthURL() {
 
                 $soundcloud = $this;
+                $login_url = '';
                 if (!$soundcloud->hasSoundcloud()) {
                     if ($soundcloudAPI = $soundcloud->connect()) {
                         /* @var \Services_Soundcloud $soundcloudAPI */
                         $login_url = $soundcloudAPI->getAuthorizeUrl(array('scope' => 'non-expiring'));
                     }
                 } else {
-                    $login_url = '';
+
                 }
                 return $login_url;
 
@@ -95,13 +96,15 @@
              */
             function connect() {
                 if (!empty(\Idno\Core\site()->config()->soundcloud)) {
-                    require_once(dirname(__FILE__) . '/external/php-soundcloud/Services/Soundcloud.php');
-                    $soundcloud = new \Services_Soundcloud(
-                        \Idno\Core\site()->config()->soundcloud['clientId'],
-                        \Idno\Core\site()->config()->soundcloud['clientSecret'],
-                        \Idno\Core\site()->config()->getURL() . 'soundcloud/callback'
-                    );
-                    return $soundcloud;
+                    if (!empty(\Idno\Core\site()->config()->soundcloud['clientId'])) {
+                        require_once(dirname(__FILE__) . '/external/php-soundcloud/Services/Soundcloud.php');
+                        $soundcloud = new \Services_Soundcloud(
+                            \Idno\Core\site()->config()->soundcloud['clientId'],
+                            \Idno\Core\site()->config()->soundcloud['clientSecret'],
+                            \Idno\Core\site()->config()->getURL() . 'soundcloud/callback'
+                        );
+                        return $soundcloud;
+                    }
                 }
                 return false;
             }
