@@ -86,7 +86,7 @@
                     <div class="control-group">
                         <div class="controls">
                             <p class="explanation">
-                                You have connected the following accounts to Twitter:
+                                You have connected the following accounts to SoundCloud:
                             </p>
                             <?php
 
