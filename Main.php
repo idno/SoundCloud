@@ -27,6 +27,14 @@
                     return $this->hasSoundcloud();
                 }, array('media'));
 
+                if ($this->hasSoundcloud()) {
+                    if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud) && !array_key_exists('access_token', \Idno\Core\site()->session()->currentUser()->soundcloud)) {
+                        foreach(\Idno\Core\site()->session()->currentUser()->soundcloud as $username => $details) {
+                            \Idno\Core\site()->syndication()->registerServiceAccount('soundcloud', $username, $username);
+                        }
+                    }
+                }
+
                 // Push "media" to Soundcloud
                 \Idno\Core\site()->addEventHook('post/media/soundcloud',function(\Idno\Core\Event $event) {
                     $eventdata = $event->data();
@@ -34,8 +42,15 @@
                     if ($attachments = $object->getAttachments()) {
                         foreach($attachments as $attachment) {
                             if ($this->hasSoundcloud()) {
-                                if ($soundcloudAPI = $this->connect()) {
-                                    $soundcloudAPI->setAccessToken(\Idno\Core\site()->session()->currentUser()->soundcloud['access_token']['access_token']);
+                                if (!empty($eventdata['syndication_account'])) {
+                                    $soundcloudAPI  = $this->connect($eventdata['syndication_account']);
+                                    $user_details = \Idno\Core\site()->session()->currentUser()->soundcloud[$eventdata['syndication_account']];
+                                } else {
+                                    $soundcloudAPI  = $this->connect();
+                                    $user_details = \Idno\Core\site()->session()->currentUser()->soundcloud['access_token'];
+                                }
+                                if ($soundcloudAPI && !empty($user_details)) {
+                                    $soundcloudAPI->setAccessToken($user_details['access_token']['access_token']);
 
                                     if ($bytes = \Idno\Entities\File::getFileDataFromAttachment($attachment)) {
                                         $media = '';
@@ -78,13 +93,9 @@
 
                 $soundcloud = $this;
                 $login_url = '';
-                if (!$soundcloud->hasSoundcloud()) {
-                    if ($soundcloudAPI = $soundcloud->connect()) {
-                        /* @var \Services_Soundcloud $soundcloudAPI */
-                        $login_url = $soundcloudAPI->getAuthorizeUrl(array('scope' => 'non-expiring'));
-                    }
-                } else {
-
+                if ($soundcloudAPI = $soundcloud->connect()) {
+                    /* @var \Services_Soundcloud $soundcloudAPI */
+                    $login_url = $soundcloudAPI->getAuthorizeUrl(array('scope' => 'non-expiring'));
                 }
                 return $login_url;
 
@@ -94,9 +105,17 @@
              * Connect to Soundcloud
              * @return bool|\Soundcloud
              */
-            function connect() {
+            function connect($username = false) {
                 if (!empty(\Idno\Core\site()->config()->soundcloud)) {
-                    if (!empty(\Idno\Core\site()->config()->soundcloud['clientId'])) {
+                    if (!empty($username)) {
+                        $params = \Idno\Core\site()->session()->currentUser()->soundcloud[$username];
+                        $soundcloud = new \Services_Soundcloud(
+                            $params['clientId'],
+                            $params['clientSecret'],
+                            \Idno\Core\site()->config()->getURL() . 'soundcloud/callback'
+                        );
+                        return $soundcloud;
+                    } else if (!empty(\Idno\Core\site()->config()->soundcloud['clientId'])) {
                         require_once(dirname(__FILE__) . '/external/php-soundcloud/Services/Soundcloud.php');
                         $soundcloud = new \Services_Soundcloud(
                             \Idno\Core\site()->config()->soundcloud['clientId'],

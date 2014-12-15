@@ -58,25 +58,65 @@
                     </div>
                 <?php
 
-                } else {
+                } else if (!\Idno\Core\site()->config()->multipleSyndicationAccounts()) {
 
                     ?>
                     <div class="control-group">
                         <div class="controls">
                             <p>
-                                Your account is currently connected to Soundcloud. Public content that you post here
-                                will be shared with your Soundcloud account.
+                                Your account is currently connected to SoundCloud. Public content that you post
+                                here
+                                will be shared with your SoundCloud account.
                             </p>
+
                             <p>
-                                <input type="hidden" name="remove" value="1" />
-                                <button type="submit" class="btn btn-primary">Click here to remove Soundcloud from your account.</button>
+                                <input type="hidden" name="remove" value="1"/>
+                                <button type="submit" class="btn btn-primary">Click here to remove SoundCloud from
+                                    your account.
+                                </button>
                             </p>
                         </div>
                     </div>
 
                 <?php
 
+                } else {
+
+                    ?>
+                    <div class="control-group">
+                        <div class="controls">
+                            <p class="explanation">
+                                You have connected the following accounts to Twitter:
+                            </p>
+                            <?php
+
+                                if ($accounts = \Idno\Core\site()->syndication()->getServiceAccounts('soundcloud')) {
+
+                                    foreach ($accounts as $account) {
+
+                                        ?>
+                                        <p>
+                                            <input type="hidden" name="remove" value="<?= $account['username'] ?>"/>
+                                            <button type="submit"
+                                                    class="btn btn-primary"><?= $account['username'] ?></button>
+                                        </p>
+                                    <?php
+
+                                    }
+
+                                }
+
+                            ?>
+                            <p>
+                                <a href="<?= $vars['login_url'] ?>" class="">Click here
+                                    to connect another SoundCloud account</a>
+                            </p>
+                        </div>
+                    </div>
+                <?php
+
                 }
+
             ?>
             <?= \Idno\Core\site()->actions()->signForm('/account/soundcloud/')?>
         </form>
