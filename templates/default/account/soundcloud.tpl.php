@@ -47,10 +47,12 @@
                             </p>
 						    </div>
 	                     </div>
+	                     <div class="social">
                             <p>
                                 <input type="hidden" name="remove" value="1" />
-                                <button type="submit" class="btn btn-primary">Disconnect Soundcloud</button>
+                                <button type="submit" class="connect scld connected">Disconnect Soundcloud</button>
                             </p>
+	                     </div>
                         </div>
                     </div>
 
