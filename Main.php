@@ -133,7 +133,10 @@
              * @return bool
              */
             function hasSoundcloud() {
-               return \Idno\Core\site()->session()->currentUser()->soundcloud;
+                if (!\Idno\Core\site()->session()->currentUser()) {
+                    return false;
+                }
+                return \Idno\Core\site()->session()->currentUser()->soundcloud;
             }
 
         }
