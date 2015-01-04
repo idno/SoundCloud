@@ -14,7 +14,13 @@
                 $this->gatekeeper(); // Logged-in users only
                 if ($twitter = \Idno\Core\site()->plugins()->get('SoundCloud')) {
                     if ($user = \Idno\Core\site()->session()->currentUser()) {
-                        $user->soundcloud = false;
+                        if ($account = $this->getInput('remove')) {
+                            if (array_key_exists($account, $user->soundcloud)) {
+                                unset($user->soundcloud[$account]);
+                            } else {
+                                $user->soundcloud = false;
+                            }
+                        }
                         $user->save();
                         \Idno\Core\site()->session()->refreshSessionUser($user);
                         if (!empty($user->link_callback)) {
