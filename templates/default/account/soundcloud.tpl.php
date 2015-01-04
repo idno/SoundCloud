@@ -23,13 +23,14 @@
                                     With Soundcloud connected, you can cross-post audio that you publish publicly on
                                     your site.
                                 </p>
-                            </div>
-                        </div>
-                        <div class="social span4">
+                        <div class="social">
                             <p>
                                 <a href="<?= $vars['login_url'] ?>" class="connect scld">Connect Soundcloud</a>
                             </p>
                         </div>
+                        
+                    </div>
+                </div>
                     </div>
                 </div>
             <?php
@@ -46,8 +47,6 @@
                                     here
                                     will be shared with your Soundcloud account.
                                 </p>
-                            </div>
-                        </div>
                         <div class="social">
                             <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>soundcloud/deauth"
                                   class="form-horizontal" method="post">
@@ -58,6 +57,9 @@
                                 </p>
                             </form>
                         </div>
+                        
+                    </div>
+                </div>
                     </div>
                 </div>
 
@@ -70,6 +72,17 @@
                     foreach ($accounts as $account) {
 
                         ?>
+                  <div class="control-group">
+                    <div class="controls-config">
+                        <div class="row">
+                            <div class="span6">
+                                <p>
+                                    Your account is currently connected to Soundcloud. Public content that you post
+                                    here
+                                    will be shared with your Soundcloud account.
+                                </p>
+                                
+                       <div class="social">       
                         <form action="<?= \Idno\Core\site()->config()->getDisplayURL() ?>soundcloud/deauth"
                               class="form-horizontal" method="post">
                             <p>
@@ -80,6 +93,7 @@
                                 <?= \Idno\Core\site()->actions()->signForm('/account/soundcloud/') ?>
                             </p>
                         </form>
+                       </div>
                     <?php
 
                     }
@@ -88,9 +102,12 @@
 
                 ?>
                 <p>
-                    <a href="<?= $vars['login_url'] ?>" class="">Click here
-                        to connect another SoundCloud account</a>
+                    <a href="<?= $vars['login_url'] ?>" class=""><icon class="icon-plus"></icon> Add another SoundCloud account</a>
                 </p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
 
             <?php
 

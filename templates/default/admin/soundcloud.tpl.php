@@ -26,18 +26,18 @@
                     </p>
                 <label class="control-label" for="name">Client ID</label>
                 <div class="controls">
-                    <input type="text" id="name" placeholder="Client ID" class="span4" name="clientId" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientId'])?>" >
+                    <input type="text" id="name" placeholder="Client ID" class="span6" name="clientId" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientId'])?>" >
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="name">Client secret</label>
                 <div class="controls">
-                    <input type="text" id="name" placeholder="Client secret" class="span4" name="clientSecret" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientSecret'])?>" >
+                    <input type="text" id="name" placeholder="Client secret" class="span6" name="clientSecret" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientSecret'])?>" >
                 </div>
             </div>
          <div class="control-group">
 	          <p>
-                        After the Soundcloud application is configured, you must enable it under Plugins.
+                        After the Soundcloud application is configured, you must connect under account Settings.
                     </p>
 
           </div> 
