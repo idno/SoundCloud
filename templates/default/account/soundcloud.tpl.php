@@ -71,7 +71,7 @@
                             <p>
                                 <input type="hidden" name="remove" value="<?= $account['username'] ?>"/>
                                 <button type="submit"
-                                        class="connect scld connected"><?= $account['username'] ?></button>
+                                        class="connect scld connected"><?= $account['username'] ?> (Disconnect)</button>
                             </p>
                         <?php
 
