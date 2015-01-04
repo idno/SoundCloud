@@ -35,7 +35,7 @@
                     unset($_SESSION['onboarding_passthrough']);
                     $this->forward(\Idno\Core\site()->config()->getURL() . 'begin/connect-forwarder');
                 }
-                $this->forward('/account/soundcloud/');
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'account/soundcloud/');
             }
 
         }

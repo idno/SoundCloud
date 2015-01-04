@@ -30,7 +30,7 @@
                 );
                 \Idno\Core\site()->config()->save();
                 \Idno\Core\site()->session()->addMessage('Your SoundCloud application details were saved.');
-                $this->forward('/admin/soundcloud/');
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'admin/soundcloud/');
             }
 
         }

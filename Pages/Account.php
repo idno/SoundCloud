@@ -31,7 +31,7 @@
                     $user->save();
                     \Idno\Core\site()->session()->addMessage('Your SoundCloud settings have been removed from your account.');
                 }
-                $this->forward('/account/soundcloud/');
+                $this->forward(\Idno\Core\site()->config()->getDisplayURL() . 'account/soundcloud/');
             }
 
         }
