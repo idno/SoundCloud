@@ -20,6 +20,8 @@
                             } else {
                                 $user->soundcloud = false;
                             }
+                        } else {
+                            $user->soundcloud = false;
                         }
                         $user->save();
                         \Idno\Core\site()->session()->refreshSessionUser($user);
