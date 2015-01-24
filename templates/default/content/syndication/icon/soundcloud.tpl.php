@@ -1,1 +1,1 @@
-<i class="icon-music"></i>
+<i class="icon-soundcloud"></i>
