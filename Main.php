@@ -45,9 +45,15 @@
                                 if (!empty($eventdata['syndication_account'])) {
                                     $soundcloudAPI  = $this->connect($eventdata['syndication_account']);
                                     $user_details = \Idno\Core\site()->session()->currentUser()->soundcloud[$eventdata['syndication_account']];
+                                    if (!empty($user_details['username'])) {
+                                        $name = $user_details['username'];
+                                    }
                                 } else {
                                     $soundcloudAPI  = $this->connect();
                                     $user_details = \Idno\Core\site()->session()->currentUser()->soundcloud['access_token'];
+                                }
+                                if (empty($name)) {
+                                    $name = 'SoundCloud';
                                 }
                                 if ($soundcloudAPI && !empty($user_details)) {
                                     $soundcloudAPI->setAccessToken($user_details['access_token']['access_token']);
@@ -69,7 +75,7 @@
                                         )));
                                         if (!empty($track->permalink_url)) {
                                             $result['id'] = $track->id;
-                                        	$object->setPosseLink('soundcloud',$track->permalink_url);
+                                        	$object->setPosseLink('soundcloud',$track->permalink_url, $name);
                                         	$object->save();
                                         }
                                     } catch (\Exception $e) {
