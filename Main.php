@@ -28,9 +28,11 @@
                 }, array('media'));
 
                 if ($this->hasSoundcloud()) {
-                    if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud) && !array_key_exists('access_token', \Idno\Core\site()->session()->currentUser()->soundcloud)) {
+                    if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
                         foreach(\Idno\Core\site()->session()->currentUser()->soundcloud as $username => $details) {
-                            \Idno\Core\site()->syndication()->registerServiceAccount('soundcloud', $username, $username);
+                            if (!in_array($username, ['username','access_token'])) {
+                                \Idno\Core\site()->syndication()->registerServiceAccount('soundcloud', $username, $username);
+                            }
                         }
                     }
                 }
