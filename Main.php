@@ -58,7 +58,7 @@
                                     $name = 'SoundCloud';
                                 }
                                 if ($soundcloudAPI && !empty($user_details)) {
-                                    $soundcloudAPI->setAccessToken($user_details['access_token']['access_token']);
+                                    $soundcloudAPI->setAccessToken($user_details['access_token']);
 
                                     if ($bytes = \Idno\Entities\File::getFileDataFromAttachment($attachment)) {
                                         $media = '';
@@ -114,17 +114,17 @@
              * @return bool|\Soundcloud
              */
             function connect($username = false) {
+                require_once(dirname(__FILE__) . '/external/php-soundcloud/Services/Soundcloud.php');
                 if (!empty(\Idno\Core\site()->config()->soundcloud)) {
                     if (!empty($username)) {
                         $params = \Idno\Core\site()->session()->currentUser()->soundcloud[$username];
                         $soundcloud = new \Services_Soundcloud(
-                            $params['clientId'],
-                            $params['clientSecret'],
+                            \Idno\Core\site()->config()->soundcloud['clientId'],
+                            \Idno\Core\site()->config()->soundcloud['clientSecret'],
                             \Idno\Core\site()->config()->getURL() . 'soundcloud/callback'
                         );
                         return $soundcloud;
                     } else if (!empty(\Idno\Core\site()->config()->soundcloud['clientId'])) {
-                        require_once(dirname(__FILE__) . '/external/php-soundcloud/Services/Soundcloud.php');
                         $soundcloud = new \Services_Soundcloud(
                             \Idno\Core\site()->config()->soundcloud['clientId'],
                             \Idno\Core\site()->config()->soundcloud['clientSecret'],
