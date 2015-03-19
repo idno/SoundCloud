@@ -1,15 +1,15 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	            <?=$this->draw('admin/menu')?>
         <h1>Soundcloud configuration</h1>
     </div>
 
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <form action="<?=\Idno\Core\site()->config()->getURL()?>admin/soundcloud/" class="form-horizontal" method="post">
-            <div class="control-group">
+            <div class="controls-group">
                 <div class="controls-config">
                     <p>
                         To begin using SoundCloud, <a href="http://soundcloud.com/you/apps/new" target="_blank">create a new application in
@@ -20,28 +20,26 @@
                     </p>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="controls-group">
 	                  <p>
                         Once you've finished, fill in the details below. You can then <a href="<?=\Idno\Core\site()->config()->getURL()?>account/soundcloud/">connect your SoundCloud account</a>.
                     </p>
                 <label class="control-label" for="name">Client ID</label>
-                <div class="controls">
-                    <input type="text" id="name" placeholder="Client ID" class="span6" name="clientId" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientId'])?>" >
-                </div>
-            </div>
-            <div class="control-group">
+
+                    <input type="text" id="name" placeholder="Client ID" class="form-control" name="clientId" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientId'])?>" >
+
                 <label class="control-label" for="name">Client secret</label>
-                <div class="controls">
-                    <input type="text" id="name" placeholder="Client secret" class="span6" name="clientSecret" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientSecret'])?>" >
-                </div>
+
+                    <input type="text" id="name" placeholder="Client secret" class="form-control" name="clientSecret" value="<?=htmlspecialchars(\Idno\Core\site()->config()->soundcloud['clientSecret'])?>" >
+
             </div>
-         <div class="control-group">
+         <div class="controls-group">
 	          <p>
-                        After the Soundcloud application is configured, you must connect under account Settings.
+                        After the Soundcloud application is configured, site users must authenticate their Soundcloud account under Settings
                     </p>
 
           </div> 
-            <div class="control-group">
+            <div class="controls-group">
                 <div class="controls-save">
                     <button type="submit" class="btn btn-primary">Save settings</button>
                 </div>
