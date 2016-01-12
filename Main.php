@@ -27,15 +27,17 @@
                     return $this->hasSoundcloud();
                 }, array('media'));
 
-                if ($this->hasSoundcloud()) {
-                    if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
-                        foreach(\Idno\Core\site()->session()->currentUser()->soundcloud as $username => $details) {
-                            if (!in_array($username, ['username','access_token'])) {
-                                \Idno\Core\site()->syndication()->registerServiceAccount('soundcloud', $username, $username);
+                \Idno\Core\site()->addEventHook('user/auth/success',function(\Idno\Core\Event $event) {
+                    if ($this->hasSoundcloud()) {
+                        if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
+                            foreach(\Idno\Core\site()->session()->currentUser()->soundcloud as $username => $details) {
+                                if (!in_array($username, ['username','access_token'])) {
+                                    \Idno\Core\site()->syndication()->registerServiceAccount('soundcloud', $username, $username);
+                                }
                             }
                         }
                     }
-                }
+                });
 
                 // Push "media" to Soundcloud
                 \Idno\Core\site()->addEventHook('post/media/soundcloud',function(\Idno\Core\Event $event) {
@@ -62,9 +64,15 @@
 
                                     if ($bytes = \Idno\Entities\File::getFileDataFromAttachment($attachment)) {
                                         $media = '';
-                                        $filename = tempnam(sys_get_temp_dir(), 'knownsoundcloud') . '.' . pathinfo($attachment['filename'], PATHINFO_EXTENSION);;
+                                        $filename = tempnam(sys_get_temp_dir(), 'knownsoundcloud') . '.' . pathinfo($attachment['url'], PATHINFO_EXTENSION);
                                         file_put_contents($filename, $bytes);
-                                        $media .= "@{$filename}"; //;type=" . $attachment['mime_type'] . ';filename=' . $attachment['filename'];
+                                        if (version_compare(phpversion(), '5.5', '>=')) {
+                                            $media = new \CURLFile($filename);
+                                            if (!empty($attachment['mime_type'])) $media->setMimeType($attachment['mime_type']);
+                                            if (!empty($attachment['filename'])) $media->setPostFilename($attachment['filename']);
+                                        } else {
+                                            $media .= "@{$filename}"; //;type=" . $attachment['mime_type'] . ';filename=' . $attachment['filename'];
+                                        }
                                     }
 
                                     $message = strip_tags($object->getDescription());
