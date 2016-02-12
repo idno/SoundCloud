@@ -76,7 +76,8 @@
                                     }
 
                                     $message = strip_tags($object->getDescription());
-									$message .= "\n\nOriginal: " . $object->getURL();
+				    $message .= "\n\nOriginal: " . $object->getURL();
+				    $message = html_entity_decode($message);
                                     try {
                                         $track = json_decode($soundcloudAPI->post('tracks', array(
                                             'track[title]' => $object->getTitle(),
