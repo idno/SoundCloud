@@ -1,1 +1,1 @@
-<i class="fa fa-soundcloud"></i>
+<i class="fab fa-soundcloud"></i>
