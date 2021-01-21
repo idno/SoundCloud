@@ -6,13 +6,13 @@
 
             function registerPages() {
                 // Register the deauth URL
-                    \Idno\Core\site()->addPageHandler('soundcloud/deauth/?','\IdnoPlugins\SoundCloud\Pages\Deauth');
+                    \Idno\Core\Idno::site()->routes()->addRoute('soundcloud/deauth/?','\IdnoPlugins\SoundCloud\Pages\Deauth');
                 // Register the callback URL
-                    \Idno\Core\site()->addPageHandler('soundcloud/callback/?','\IdnoPlugins\SoundCloud\Pages\Callback');
+                    \Idno\Core\Idno::site()->routes()->addRoute('soundcloud/callback/?','\IdnoPlugins\SoundCloud\Pages\Callback');
                 // Register admin settings
-                    \Idno\Core\site()->addPageHandler('admin/soundcloud/?','\IdnoPlugins\SoundCloud\Pages\Admin');
+                    \Idno\Core\Idno::site()->routes()->addRoute('admin/soundcloud/?','\IdnoPlugins\SoundCloud\Pages\Admin');
                 // Register settings page
-                    \Idno\Core\site()->addPageHandler('account/soundcloud/?','\IdnoPlugins\SoundCloud\Pages\Account');
+                    \Idno\Core\Idno::site()->routes()->addRoute('account/soundcloud/?','\IdnoPlugins\SoundCloud\Pages\Account');
 
                 /** Template extensions */
                 // Add menu items to account & administration screens
@@ -27,7 +27,7 @@
                     return $this->hasSoundcloud();
                 }, array('media'));
 
-                \Idno\Core\site()->addEventHook('user/auth/success',function(\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->events()->addListener('user/auth/success',function(\Idno\Core\Event $event) {
                     if ($this->hasSoundcloud()) {
                         if (is_array(\Idno\Core\site()->session()->currentUser()->soundcloud)) {
                             foreach(\Idno\Core\site()->session()->currentUser()->soundcloud as $username => $details) {
@@ -40,7 +40,7 @@
                 });
 
                 // Push "media" to Soundcloud
-                \Idno\Core\site()->addEventHook('post/media/soundcloud',function(\Idno\Core\Event $event) {
+                \Idno\Core\Idno::site()->events()->addListener('post/media/soundcloud',function(\Idno\Core\Event $event) {
                     $eventdata = $event->data();
                     $object = $eventdata['object'];
                     if ($attachments = $object->getAttachments()) {
