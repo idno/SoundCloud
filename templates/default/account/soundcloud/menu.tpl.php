@@ -1,1 +1,1 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/account/soundcloud/') echo 'class="active"'; ?>><a href="/account/soundcloud/">SoundCloud</a></li>
+<li <?php if (strpos($_SERVER['REQUEST_URI'], '/account/soundcloud/') !== false) echo 'class="active"'; ?>><a href="<?=\Idno\Core\site()->config()->getDisplayURL(); ?>account/soundcloud/">SoundCloud</a></li>
